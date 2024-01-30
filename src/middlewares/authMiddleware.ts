@@ -1,12 +1,13 @@
 import dotenv from 'dotenv'
-import jwt, { Secret } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import { } from "csurf";
+
 import User from '../models/users';
 dotenv.config()
 
-const secretKey = process.env.JWT_SECRET as Secret
 
+const secretKey = process.env.JWT_SECRET as jwt.Secret
+const refreshKey = process.env.REFRESH_TOKEN_SECRET as jwt.Secret
 declare global {
   namespace Express {
     interface Request {
@@ -17,6 +18,7 @@ declare global {
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers['authorization'];
+
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
@@ -37,14 +39,14 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 };
 
 export const authenticateRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
-  const refreshToken = req.cookies.refreshToken;
+  const refreshToken = req.cookies?.refreshToken;
 
   if (!refreshToken) {
     return res.status(401).json({ message: 'Refresh token não fornecido' });
   }
 
   try {
-    const decoded = jwt.verify(refreshToken, secretKey) as { userId: string };
+    const decoded = jwt.verify(refreshToken, refreshKey) as { userId: string };
     const user = await User.findById(decoded.userId);
 
     if (!user) {

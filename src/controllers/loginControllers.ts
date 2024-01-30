@@ -9,7 +9,6 @@ const secretKeyRefresh = process.env.REFRESH_TOKEN_SECRET as jwt.Secret
 
 async function login(req: Request, res: Response) {
   const { email, password } = req.body;
-
   try {
     const user = await User.findOne({ email }).select('+password')
     if (!user) {
@@ -26,8 +25,7 @@ async function login(req: Request, res: Response) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // Gerar token JWT
-    const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '1000h' });
     const refreshToken = jwt.sign({ userId: user._id }, secretKeyRefresh, { expiresIn: '30d' });
 
     return res.json({ token, refreshToken });

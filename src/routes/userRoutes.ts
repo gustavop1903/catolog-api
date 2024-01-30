@@ -6,9 +6,11 @@ const router = Router();
 
 // router.post('/', userControllers.create);
 
-//Protected routes
-// router.use(authenticateToken)
-// router.put('/:id', userControllers.update);
-// router.delete('/:id', userControllers.delete);
+// Protected routes
+router.use(authenticateToken)
+
+router.get('/', userControllers.index);
+router.patch('/:id', userControllers.patch);
+router.delete('/:id', userControllers.delete);
 
 export default router;

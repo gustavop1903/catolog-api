@@ -9,27 +9,25 @@ import mongoose, { Document } from 'mongoose';
 //   password: string;
 // }
 
-const UserSchema = new mongoose.Schema({
-  // _id: { type: String, unique: true, default: uuidv4 },
+const UsersSchema = new mongoose.Schema({
+  //_id: { type: String, unique: true, default: uuidv4 },
+  // _id: mongoose.Schema.Types.ObjectId,
   name: { type: String, require: true },
   email: { type: String, require: true, unique: true },
   password: { type: String, require: true }
 });
 
 
-UserSchema.pre('save', async function (next) {
+UsersSchema.pre('save', async function (next) {
   const user = this;
 
   if (!user.isModified('password')) return next();
-  console.log(user.password);
 
   const password = user.password as string;
   const hash = await bcrypt.hash(password, 10);;
   user.password = hash;
-
-  next();
 });
 
-const UserModel = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UsersSchema);
 
-export default UserModel;
+export default User;

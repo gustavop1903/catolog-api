@@ -1,16 +1,19 @@
-import express from "express";
+import { Router } from "express";
 
-import userRoutes from "./src/routes/userRoutes";
-import loginRoutes from "./src/routes/authRoutes";
+import loginRoutes from "./src/routes/loginRoutes";
 import newUserRoutes from "./src/routes/newUserRoutes";
 
-const routes = express.Router();
+import userRoutes from "./src/routes/userRoutes";
+import categoryRoutes from "./src/routes/categoriesRoutes"
+import productRoutes from './src/routes/productsRoutes'
+
+const routes = Router();
 
 routes.use('/login', loginRoutes)
-
 routes.use('/newuser', newUserRoutes)
+
 routes.use('/users', userRoutes)
-// routes.use('/categories',)
-// routes.use('/products',)
+routes.use('/categories', categoryRoutes)
+routes.use('/products', productRoutes)
 
 export default routes;
