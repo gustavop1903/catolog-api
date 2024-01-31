@@ -1,3 +1,9 @@
+
+/*
+ESSE CODIGO REFLETE O QUE FOI INSERIFO NO AWS LAMBDA
+*/
+
+
 import { S3Client, GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 
 const client = new S3Client({ region: "us-east-1" });
