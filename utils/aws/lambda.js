@@ -1,7 +1,7 @@
 
 /*
 ESSE CODIGO REFLETE O QUE FOI INSERIFO NO AWS LAMBDA
-*/
+
 
 
 import { S3Client, GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
@@ -143,3 +143,4 @@ function deleteItemById(catalogData, itemId) {
 
   return false;
 }
+*/
