@@ -115,12 +115,12 @@ Aqui incluimos autenticação com JWT, validações de email, senhas.
     ```
 
 - **GET /api/users:** Retorna todos os produtos
-- **PUT /api/users/{id}:** Atualiza um produto
+- **PATCH /api/users/{id}:** Atualiza um produto
 - **DELETE /api/users/{id}:** Deleta um produto
 
 ### Categoria
 
-- **POST /api/category:** Cria uma nova categoria
+- **POST /api/categories:** Cria uma nova categoria
 
     ```json
     {
@@ -131,13 +131,13 @@ Aqui incluimos autenticação com JWT, validações de email, senhas.
     }
     ```
 
-- **GET /api/category:** Retorna todas as categorias
-- **PUT /api/category/{id}:** Atualiza uma categoria
-- **DELETE /api/category/{id}:** Deleta uma categoria
+- **GET /api/categories:** Retorna todas as categorias
+- **PATCH /api/categories/{id}:** Atualiza uma categoria
+- **DELETE /api/categories/{id}:** Deleta uma categoria
 
 ### Produto
 
-- **POST /api/product:** Cria um novo produto
+- **POST /api/products:** Cria um novo produto
 
     ```json
     {
@@ -150,9 +150,9 @@ Aqui incluimos autenticação com JWT, validações de email, senhas.
     }
     ```
 
-- **GET /api/product:** Retorna todos os produtos
-- **PUT /api/product/{id}:** Atualiza um produto
-- **DELETE /api/product/{id}:** Deleta um produto
+- **GET /api/products:** Retorna todos os produtos
+- **PATCH /api/products/{id}:** Atualiza um produto
+- **DELETE /api/products/{id}:** Deleta um produto
 
 
 ## Banco de Dados
