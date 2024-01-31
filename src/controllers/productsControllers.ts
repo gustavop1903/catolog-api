@@ -9,13 +9,16 @@ class ProductsControllers {
 
   async create(req: Request, res: Response) {
     try {
-      const { title, description, ownerId, categoryId } = req.body;
+      const { title, description, price, ownerId, categoryId } = req.body;
       const userAuthenticated = req.user.userId
 
       if (!title) {
         return res.status(400).json({ error: 'Title is required' });
       }
-      const productname = await Product.findOne({ title });
+      if (!price) {
+        return res.status(400).json({ error: 'Price is required' });
+      }
+      const productname = await Product.findOne({ title, ownerId: ownerId });
       if (productname) {
         return res.status(400).json({ error: 'This tilte already exist' });
       }
@@ -39,7 +42,8 @@ class ProductsControllers {
       verifyOwnerCurrent(ownerId, userAuthenticated);
 
       const newProduct = await Product.create(req.body);
-      const sns_emit = await snsPublish(req.body);
+
+      await snsPublish(newProduct);
 
       return res.status(201).json(newProduct);
     } catch (error) {
@@ -55,7 +59,7 @@ class ProductsControllers {
 
       const userAuthenticated = req.user.userId
       const product = await Product.findById(id);
-      const category = await Product.findById(categoryId);
+      const category = await Categories.findById(categoryId);
 
       if (!product) {
         return res.status(404).json({ error: 'Product not found' });
@@ -72,10 +76,10 @@ class ProductsControllers {
       if (title !== undefined && title.trim() !== '') product.title = title;
       if (description !== undefined && description.trim() !== '') product.description = description;
       if (price !== undefined && price.trim() !== '') product.price = price;
-      if (categoryId !== undefined && price.trim() !== '') product.categoryId = categoryId;
+      if (categoryId) product.categoryId = categoryId;
 
       await product.save();
-      const sns_emit = await snsPublish(req.body)
+      await snsPublish(product)
 
       return res.status(200).json(product);
     } catch (error) {
@@ -96,7 +100,7 @@ class ProductsControllers {
       verifyOwnerCurrent(product.ownerId!.toString(), userAuthenticated);
 
       await product.deleteOne();
-      const sns_emit = await snsPublish(req.params)
+      await snsPublish(req.params)
 
       return res.status(204).end();
     } catch (error) {

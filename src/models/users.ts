@@ -10,8 +10,7 @@ import mongoose, { Document } from 'mongoose';
 // }
 
 const UsersSchema = new mongoose.Schema({
-  //_id: { type: String, unique: true, default: uuidv4 },
-  // _id: mongoose.Schema.Types.ObjectId,
+  // _id: { type: String },
   name: { type: String, require: true },
   email: { type: String, require: true, unique: true },
   password: { type: String, require: true }

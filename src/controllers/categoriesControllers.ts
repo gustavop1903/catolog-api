@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Categories from '../models/categories';
 import User from '../models/users';
+import Product from '../models/products';
 import snsPublish from "../../utils/aws/awsSnsConfig";
 import { verifyOwnerCurrent } from "../../utils/shortcuts/verifyOwnerCurrent";
 
@@ -11,7 +12,7 @@ class CategoryControllers {
       const { title, ownerId } = req.body;
 
       const userAuthenticated = req.user.userId
-      const categoryname = await Categories.findOne({ title });
+      const categoryname = await Categories.findOne({ title, ownerId: ownerId });
 
       if (!title) {
         return res.status(400).json({ error: 'Title is required' });
@@ -19,19 +20,16 @@ class CategoryControllers {
       if (!ownerId) {
         return res.status(400).json({ error: 'OwnerId is required' });
       }
-      const user = await User.findById(ownerId);
-      if (!user) {
-        return res.status(400).json({ error: 'Owner user does not exist' });
-      }
+      verifyOwnerCurrent(ownerId, userAuthenticated);
+
       if (categoryname) {
         return res.status(400).json({ error: 'Category with this title already exists' });
       }
-      verifyOwnerCurrent(ownerId, userAuthenticated);
 
-      const category = await Categories.create(req.body);
-      const sns_emit = await snsPublish(req.body)
+      const newCategory = await Categories.create(req.body);
+      await snsPublish(newCategory);
 
-      return res.status(201).json(category);
+      return res.status(201).json(newCategory);
     } catch (error) {
       console.error('Error creating category:', error);
       return res.status(500).json({ error: 'Internal server error' });
@@ -58,7 +56,7 @@ class CategoryControllers {
       if (description) category.description = description;
 
       await category.save();
-      const sns_emit = await snsPublish(req.body)
+      await snsPublish(category);
 
       return res.status(200).json(category);
     } catch (error) {
@@ -78,8 +76,9 @@ class CategoryControllers {
       }
       verifyOwnerCurrent(category.ownerId!.toString(), userAuthenticated);
 
+      await Product.deleteMany({ categoryId: id });
       await category.deleteOne();
-      const sns_emit = await snsPublish(req.params)
+      await snsPublish(req.params)
 
       return res.status(204).end();
     } catch (error) {

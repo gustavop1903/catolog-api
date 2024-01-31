@@ -36,7 +36,7 @@ class UserControllers {
         });
       } else {
         res.status(500).json({
-          errors: e
+          errors: e.message
         });
       }
     }

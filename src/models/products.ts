@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import mongoose, { Schema } from 'mongoose';
 
 const ProductsSchema = new mongoose.Schema({
-  //_id: { type: String, unique: true, default: uuidv4 },
+  // _id: { type: String },
   title: { type: String, require: true, maxlength: 25 },
   description: { type: String, require: true, maxlength: 500 },
   price: { type: Number, require: true },

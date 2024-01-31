@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-sns": "^3.502.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/csurf": "^1.11.5",
     "@types/express": "^4.17.21",
