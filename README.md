@@ -6,10 +6,10 @@ Este projeto consiste em uma API desenvolvida em TypeScript e Node.js, utilizand
 
 - [Instalação](#instalação)
 - [Uso](#uso)
+- [AWS](#AWS)
 - [Endpoints da API](#endpoints-da-api)
 - [Banco de Dados](#banco-de-dados)
-- [Demonstração do JSON na S3](#demonstração-do-json-na-s3)
-- [Função Lambda](#função-lambda)
+- [Demonstração do JSON na S3](#Resultado-json-na-s3)
 
 ## Instalação
 
@@ -24,7 +24,7 @@ Este projeto consiste em uma API desenvolvida em TypeScript e Node.js, utilizand
     ```bash
     npm install
     ```
-    #### ou se você usa docker siga para proxima etapa
+#### ou se você usa docker siga para proxima etapa
 
 3. Configure as variáveis de ambiente. Crie um arquivo `.env` com suas credenciais da AWS:
 
@@ -51,20 +51,51 @@ Este projeto consiste em uma API desenvolvida em TypeScript e Node.js, utilizand
 
 ## Uso
 
-1.1. Inicie a aplicação com npm:
+1. Inicie a aplicação com npm:
 
     ```bash
     npm run dev
     ```
-    ou
+ou
 
-1.2. Inicie a aplicação com docker
+2. Inicie a aplicação com docker
 
     ```bash
     docker compose up --build -d
     ```
 
-2. A API estará acessível em http://localhost:3000.
+3. A API estará acessível em http://localhost:3000.
+
+## AWS
+
+#### Configuração dos Serviços da AWS
+
+    Crie um Usuário IAM:
+    1.1. Crie um usuário IAM no console da AWS.
+    1.2. Copie e cole a região, a chave de acesso e a chave secreta do usuário IAM nas variáveis de ambiente do seu projeto.
+    1.3. Dê as seguintes permissões ao usuário IAM:
+        S3 Full Access
+        SQS Full Access
+        SNS Full Access
+
+    Crie um Tópico com SNS:
+    2.1. Crie um tópico no console do SNS.
+    2.2. Copie o ARN fornecido para o tópico e cole nas variáveis de ambiente do seu projeto.
+
+    Crie um Serviço de Fila com SQS:
+    3.1. Crie uma fila no console do SQS.
+    3.2. Configure uma assinatura do SNS para a fila no console do SQS.
+
+    Crie um Bucket na S3:
+    4.1. Crie um bucket no console do S3.
+
+    Crie uma Função Lambda:
+    5.1. Crie uma função Lambda no console da AWS.
+    5.2. Dê as seguintes permissões à função Lambda:
+        S3: Execute operations
+        SQS: Full Access
+
+
 
 ## Endpoints da API
 
@@ -128,7 +159,7 @@ Aqui incluimos autenticação com JWT, validações de email, senhas.
 
 Este projeto utiliza o MongoDB para armazenamento de dados. Utilizamos o Atlas para ter uma interface gráfica sem precisar instalar nenhuma dependência. [Link do Atlas](https://www.mongodb.com/cloud/atlas)
 
-## Demonstração do JSON na S3
+## Resultado JSON na S3
 
 ```json
 {
