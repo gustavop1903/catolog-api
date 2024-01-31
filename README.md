@@ -1,6 +1,6 @@
 # Product Catalog API - TypeScript, Node.js, AWS
 
-Este projeto consiste em uma API desenvolvida em TypeScript e Node.js, utilizando serviços da AWS para escalabilidade e eficiente gerenciamento de dados. Utilizamos os serviços de SNS para gerar uma mensagem contendo os dados de atualização dos nossos endpoints, colocando-a na fila no SQS, e depois consumida por uma função lambda que armazena e atualiza no bucket da S3.
+Este projeto consiste em uma API desenvolvida em TypeScript e Node.js e alguns serviços da AWS. Utilizamos os serviços de SNS para gerar uma mensagem contendo os dados de atualização dos nossos endpoints, colocando-a na fila no SQS, e depois consumida por uma função lambda que armazena e atualiza no bucket da S3.
 
 ## Sumário
 
