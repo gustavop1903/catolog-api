@@ -27,12 +27,12 @@ Este projeto consiste em uma API desenvolvida em TypeScript e Node.js e alguns s
     npm install
     ```
 
-3. Configure as variáveis de ambiente. Crie um arquivo `.env` com suas credenciais da AWS:
+3. Configure as variáveis de ambiente. Crie um arquivo `.env` com suas credenciais da AWS e chaves para a autenticação com JWT:
 
     ```dotenv
     CONNECTIONSTRING=sua-chave-CONNECTIONSTRING
-    JWT_SECRET=sua-chave-JWT_SECRET
-    REFRESH_TOKEN_SECRET=sua-chave-REFRESH_TOKEN_SECRET
+    JWT_SECRET=sua-chave-JWT_SECRET //Gere uma Chave JWT. Pode criar uma seguencia alfanumeria aqui
+    REFRESH_TOKEN_SECRET=sua-chave-REFRESH_TOKEN_SECRET //Gere uma Chave JWT para o refresh Token
     AWS_SERVICE_KEY=sua-chave-AWS_SERVICE_KEY
     AWS_SECRET_KEY=sua-chave-AWS_SECRET_KEY
     AWS_REGION=sua-chave-AWS_REGION
