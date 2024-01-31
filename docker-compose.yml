@@ -1,0 +1,16 @@
+version: '1'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - CONNECTIONSTRING=sua-chave-CONNECTIONSTRING
+      - JWT_SECRET=sua-chave-JWT_SECRET
+      - REFRESH_TOKEN_SECRET=sua-chave-REFRESH_TOKEN_SECRET
+      - AWS_SERVICE_KEY=sua-chave-AWS_SERVICE_KEY
+      - AWS_SECRET_KEY=sua-chave-AWS_SECRET_KEY
+      - AWS_REGION=sua-chave-AWS_REGION
+      - AWS_SNS_TOPIC_ARN=sua-chave-AWS_SNS_TOPIC_ARN
+    volumes:
+      - .:/usr/src/app
