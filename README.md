@@ -19,9 +19,9 @@ Este projeto consiste em uma API desenvolvida em TypeScript e Node.js e alguns s
     git clone https://github.com/seu-usuario/seu-projeto.git
     ```
 
-#### Se você usa docker pule essa etapa e siga para etapa 3
 
 2. Instale as dependências:
+### Se você usa docker pule essa etapa e siga para etapa 3
 
     ```bash
     npm install
